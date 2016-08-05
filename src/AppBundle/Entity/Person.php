@@ -2,6 +2,9 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Address;
+use AppBundle\Entity\Email;
+use AppBundle\Entity\Phone;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -48,9 +51,21 @@ class Person
      */
     private $addresses;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Email", mappedBy="person")
+     */
+    private $emails;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Phone", mappedBy="person")
+     */
+    private $phones;
+
     public function __construct()
     {
         $this->adresses = new ArrayCollection();
+        $this->emails = new ArrayCollection();
+        $this->phones = new ArrayCollection();
     }
 
     /**
@@ -135,10 +150,10 @@ class Person
     /**
      * Add addresses
      *
-     * @param \AppBundle\Entity\Address $addresses
+     * @param Address $addresses
      * @return Person
      */
-    public function addAddress(\AppBundle\Entity\Address $addresses)
+    public function addAddress(Address $addresses)
     {
         $this->addresses[] = $addresses;
 
@@ -148,9 +163,9 @@ class Person
     /**
      * Remove addresses
      *
-     * @param \AppBundle\Entity\Address $addresses
+     * @param Address $addresses
      */
-    public function removeAddress(\AppBundle\Entity\Address $addresses)
+    public function removeAddress(Address $addresses)
     {
         $this->addresses->removeElement($addresses);
     }
@@ -163,5 +178,71 @@ class Person
     public function getAddresses()
     {
         return $this->addresses;
+    }
+
+    /**
+     * Add emails
+     *
+     * @param Email $emails
+     * @return Person
+     */
+    public function addEmail(Email $emails)
+    {
+        $this->emails[] = $emails;
+
+        return $this;
+    }
+
+    /**
+     * Remove emails
+     *
+     * @param Email $emails
+     */
+    public function removeEmail(Email $emails)
+    {
+        $this->emails->removeElement($emails);
+    }
+
+    /**
+     * Get emails
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEmails()
+    {
+        return $this->emails;
+    }
+
+    /**
+     * Add phones
+     *
+     * @param Phone $phones
+     * @return Person
+     */
+    public function addPhone(Phone $phones)
+    {
+        $this->phones[] = $phones;
+
+        return $this;
+    }
+
+    /**
+     * Remove phones
+     *
+     * @param Phone $phones
+     */
+    public function removePhone(Phone $phones)
+    {
+        $this->phones->removeElement($phones);
+    }
+
+    /**
+     * Get phones
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhones()
+    {
+        return $this->phones;
     }
 }

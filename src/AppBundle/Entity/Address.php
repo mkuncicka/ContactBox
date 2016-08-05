@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Entity\Person;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -159,10 +160,10 @@ class Address
     /**
      * Set person
      *
-     * @param \AppBundle\Entity\Person $person
+     * @param Person $person
      * @return Address
      */
-    public function setPerson(\AppBundle\Entity\Person $person = null)
+    public function setPerson(Person $person = null)
     {
         $this->person = $person;
 
@@ -172,7 +173,7 @@ class Address
     /**
      * Get person
      *
-     * @return \AppBundle\Entity\Person 
+     * @return Person
      */
     public function getPerson()
     {

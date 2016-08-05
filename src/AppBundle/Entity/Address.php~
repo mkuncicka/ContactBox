@@ -156,5 +156,26 @@ class Address
         return $this->houseNumber;
     }
 
+    /**
+     * Set person
+     *
+     * @param \AppBundle\Entity\Person $person
+     * @return Address
+     */
+    public function setPerson(\AppBundle\Entity\Person $person = null)
+    {
+        $this->person = $person;
 
+        return $this;
+    }
+
+    /**
+     * Get person
+     *
+     * @return \AppBundle\Entity\Person 
+     */
+    public function getPerson()
+    {
+        return $this->person;
+    }
 }
