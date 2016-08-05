@@ -2,8 +2,11 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Address;
 use AppBundle\Entity\Person;
+use AppBundle\Form\AddressType;
 use AppBundle\Form\PersonType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -31,7 +34,7 @@ class PersonController extends Controller
             $em->persist($person);
             $em->flush();
 
-            return $this->redirectToRoute('app_person_showall');
+            return $this->redirectToRoute('app_person_show', ['id' => $person->getId(), 'person' => $person]);
         }
 
         return ['form' => $form->createView()];
@@ -57,11 +60,25 @@ class PersonController extends Controller
 
         if ($form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('app_person_showall');
         }
 
-        return ['form' => $form->createView()];
+        $address = new Address();
+        $addressForm = $this->createForm(new AddressType(), $address);
+        $addressForm->add('Dodaj adres', 'submit');
+        $addressForm->handleRequest($request);
+
+        if ($addressForm->isValid()) {
+            $address->setPerson($person);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($address);
+            $em->flush();
+
+            return $this->redirectToRoute('app_person_show', ['id' => $person->getId(), 'person' => $person]);
+        }
+
+        return ['form' => $form->createView(),
+            'addressForm' => $addressForm->createView(),
+            'person' => $person];
     }
 
     /**
@@ -111,5 +128,9 @@ class PersonController extends Controller
 
         return ['people' => $people];
     }
+
 }
 
+//Dodaj do widoku formularz (przypisany do adresu) który będzie odsyłał do
+//strony POST /{id}/addAddress
+//2. Dodaj akcję która obsłuży formularz.

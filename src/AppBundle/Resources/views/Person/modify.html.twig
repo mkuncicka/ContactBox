@@ -5,6 +5,14 @@
 {% endblock %}
 
 {% block body %}
+    <p>Dane kontaktu:</p>
+    {{ include('AppBundle:Person:personData.html.twig', {'person':person}) }}
+<hr>
+    <p>Edycja danych kontaktu</p>
     {{ form(form) }}
+<hr>
+    <p>Dodawanie adresu</p>
+    {{ form(addressForm) }}
+
 {% endblock %}
 

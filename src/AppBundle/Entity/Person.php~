@@ -44,7 +44,7 @@ class Person
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="Address", mappedBy="person")
+     * @ORM\OneToMany(targetEntity="Address", mappedBy="$person")
      */
     private $addresses;
 
@@ -130,38 +130,5 @@ class Person
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Add addresses
-     *
-     * @param \AppBundle\Entity\Address $addresses
-     * @return Person
-     */
-    public function addAddress(\AppBundle\Entity\Address $addresses)
-    {
-        $this->addresses[] = $addresses;
-
-        return $this;
-    }
-
-    /**
-     * Remove addresses
-     *
-     * @param \AppBundle\Entity\Address $addresses
-     */
-    public function removeAddress(\AppBundle\Entity\Address $addresses)
-    {
-        $this->addresses->removeElement($addresses);
-    }
-
-    /**
-     * Get addresses
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getAddresses()
-    {
-        return $this->addresses;
     }
 }
