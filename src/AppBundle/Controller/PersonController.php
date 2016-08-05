@@ -60,6 +60,8 @@ class PersonController extends Controller
 
         if ($form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('app_person_modify', ['id' => $person->getId(), 'person' => $person]);
         }
 
         $address = new Address();
@@ -79,6 +81,26 @@ class PersonController extends Controller
         return ['form' => $form->createView(),
             'addressForm' => $addressForm->createView(),
             'person' => $person];
+    }
+
+    private function personFormAction()
+    {
+
+    }
+
+    private function addressFormAction()
+    {
+
+    }
+
+    private function emailFormAction()
+    {
+
+    }
+
+    private function phoneFormAction()
+    {
+
     }
 
     /**

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class AddressType extends AbstractType
+class EmailType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,10 +15,9 @@ class AddressType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('city', null, ['label' => 'Miasto:'])
-            ->add('street', null, ['label' => 'Ulica:'])
-            ->add('buildingNumber', null, ['label' => 'Nr domu:'])
-            ->add('houseNumber', null, ['label' => "Nr mieszkania:"]);
+            ->add('email', null, ['label' => 'Email:'])
+            ->add('type', null, ['label' => 'Typ:'])
+        ;
     }
     
     /**
@@ -27,7 +26,7 @@ class AddressType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Address'
+            'data_class' => 'AppBundle\Entity\Email'
         ));
     }
 
@@ -36,6 +35,6 @@ class AddressType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_address';
+        return 'appbundle_email';
     }
 }
