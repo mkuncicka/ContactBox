@@ -1,1 +1,12 @@
-<p><a href="{{ path('app_person_show', {'id': person.id}) }}">{{ person.firstName }} {{ person.lastName }}.</a> | <span id="person_disc">{{ person.description }}</span></p>
+{% extends '::base.html.twig' %}
+{% block body %}
+{{ include('AppBundle:Person:personLine.html.twig', {'person':person}) }}
+<p>Adresy:</p>
+<ol>
+{% for address in person.addresses %}
+    <li>{{ include('AppBundle:Address:address.html.twig', {'person': person}) }}</li>
+{% else %}
+    <p>Brak adresów</p>
+{% endfor %}
+</ol>
+{% endblock %}

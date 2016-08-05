@@ -73,7 +73,7 @@ class PersonController extends Controller
             $em->persist($address);
             $em->flush();
 
-            return $this->redirectToRoute('app_person_show', ['id' => $person->getId(), 'person' => $person]);
+            return $this->redirectToRoute('app_person_modify', ['id' => $person->getId(), 'person' => $person]);
         }
 
         return ['form' => $form->createView(),
@@ -96,7 +96,7 @@ class PersonController extends Controller
         $em->remove($person);
         $em->flush();
 
-        return $this->redirectToRoute('app_person_delete');
+        return $this->redirectToRoute('app_person_showall');
     }
 
     /**
@@ -120,7 +120,7 @@ class PersonController extends Controller
      */
     public function showAllAction()
     {
-        $people = $this->getDoctrine()->getRepository("AppBundle:Person")->findAll();
+        $people = $this->getDoctrine()->getRepository("AppBundle:Person")->findBy(array(),array('lastName' => 'ASC'));;
 
         if (!$people) {
             throw $this->createNotFoundException("Błąd wyszukiwania osób z bazy");

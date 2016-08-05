@@ -1,9 +1,0 @@
-{{ include('AppBundle:Person:person.html.twig', {'person':person}) }}
-<p>Adresy:</p>
-<ol>
-{% for address in person.addresses %}
-    <li>{{ include('AppBundle:Address:address.html.twig', {'person': person}) }}</li>
-{% else %}
-    <p>Brak adresów</p>
-{% endfor %}
-</ol>

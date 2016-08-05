@@ -6,7 +6,7 @@
 
 {% block body %}
     <p>Dane kontaktu:</p>
-    {{ include('AppBundle:Person:personData.html.twig', {'person':person}) }}
+    {{ include('AppBundle:Person:person.html.twig', {'person':person}) }}
 <hr>
     <p>Edycja danych kontaktu</p>
     {{ form(form) }}

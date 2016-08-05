@@ -5,8 +5,12 @@
 {% endblock %}
 
 {% block body %}
+    <div>
+        <p style="text-align: right"><a href="{{ path('app_person_new') }}">Dodaj kontakt</a></p>
+    </div>
 {% for person in people %}
-{{ include('AppBundle:Person:person.html.twig', {'person' : person}) }}
+{{ include('AppBundle:Person:personLine.html.twig', {'person' : person}) }}
+
     <hr>
 {% endfor %}
 {% endblock %}

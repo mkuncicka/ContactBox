@@ -1,0 +1,9 @@
+<p><div><a href="{{ path('app_person_show', {'id': person.id}) }}">{{ person.firstName }} {{ person.lastName }}.</a> | <span class="person_disc">{{ person.description }}</span>
+<form method="post" style="display:inline" action="{{ path('app_person_delete', {'id': person.id}) }}">
+    <button type="submit" name="delete" data-id="p{{ person.id }}">Usuń</button>
+</form>
+<form method="post" style="display:inline" action="{{ path('app_person_modify', {'id': person.id}) }}">
+    <button type="submit" name="edit" data-id="p{{ person.id }}">Edytuj</button>
+</form>
+
+</div></p>
