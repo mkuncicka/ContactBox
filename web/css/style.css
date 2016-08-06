@@ -1,3 +1,38 @@
-.person_disc {
-    color: gray;
+body {
+    background-color: lightgray;
 }
+
+.containter {
+    margin: 20px;
+    background-color: darkgray;
+}
+
+.person_disc {
+    color: dimgray;
+}
+
+.menu {
+    background-color: grey;
+    margin: 0;
+    padding: 10px;
+    border: maroon 1px solid;
+}
+
+a {
+    color: maroon;
+    text-decoration: none;
+}
+
+.menu li {
+    background-color: grey;
+    display: inline;
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+
+}
+
+.menu li:hover {
+    background-color: #555;
+}
+

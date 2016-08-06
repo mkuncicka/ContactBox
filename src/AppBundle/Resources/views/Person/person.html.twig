@@ -1,5 +1,3 @@
-{% extends '::base.html.twig' %}
-{% block body %}
 {{ include('AppBundle:Person:personLine.html.twig', {'person':person}) }}
 <p>Adresy:</p>
 <ol>
@@ -9,4 +7,20 @@
     <p>Brak adresów</p>
 {% endfor %}
 </ol>
-{% endblock %}
+    <p>E-maile</p>
+<ol>
+    {% for email in person.emails %}
+        <li>{{ include('AppBundle:Email:email.html.twig', {'person': person}) }}</li>
+    {% else %}
+        <p>Brak emaili</p>
+    {% endfor %}
+</ol>
+    <p>Telefony</p>
+
+    <ol>
+    {% for phone in person.phones %}
+        <li>{{ include('AppBundle:Phone:phone.html.twig', {'person': person}) }}</li>
+    {% else %}
+        <p>Brak telefonów</p>
+    {% endfor %}
+</ol>

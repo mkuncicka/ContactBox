@@ -3,9 +3,13 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Address;
+use AppBundle\Entity\Email;
 use AppBundle\Entity\Person;
+use AppBundle\Entity\Phone;
 use AppBundle\Form\AddressType;
+use AppBundle\Form\EmailType;
 use AppBundle\Form\PersonType;
+use AppBundle\Form\PhoneType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -48,6 +52,30 @@ class PersonController extends Controller
     {
         $person = $this->getDoctrine()->getRepository("AppBundle:Person")->find($id);
 
+        $personForm = $this->personFormAction($request, $id);
+        $addressForm = $this->addressFormAction($request, $person);
+        $emailForm = $this->emailFormAction($request, $person);
+        $phoneForm = $this->phoneFormAction($request, $person);
+
+        if ($personForm->isValid()
+            or $addressForm->isValid()
+            or $emailForm->isValid()
+            or $phoneForm->isValid()
+        ) {
+            $this->redirectToRoute('app_person_modify', ['id' => $person->getId(), 'person' => $person]);
+
+        }
+        return ['personForm' => $personForm->createView(),
+            'addressForm' => $addressForm->createView(),
+            'emailForm' => $emailForm->createView(),
+            'phoneForm' => $phoneForm->createView(),
+            'person' => $person];
+    }
+
+    private function personFormAction(Request $request, $id)
+    {
+        $person = $this->getDoctrine()->getRepository("AppBundle:Person")->find($id);
+
         if (!$person) {
             throw $this->createNotFoundException("Nie znaleziono osoby");
         }
@@ -60,10 +88,13 @@ class PersonController extends Controller
 
         if ($form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('app_person_modify', ['id' => $person->getId(), 'person' => $person]);
         }
 
+        return $form;
+    }
+
+    private function addressFormAction(Request $request, Person $person)
+    {
         $address = new Address();
         $addressForm = $this->createForm(new AddressType(), $address);
         $addressForm->add('Dodaj adres', 'submit');
@@ -74,33 +105,43 @@ class PersonController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($address);
             $em->flush();
-
-            return $this->redirectToRoute('app_person_modify', ['id' => $person->getId(), 'person' => $person]);
         }
 
-        return ['form' => $form->createView(),
-            'addressForm' => $addressForm->createView(),
-            'person' => $person];
+        return $addressForm;
     }
 
-    private function personFormAction()
+    private function emailFormAction(Request $request, Person $person)
     {
+        $email = new Email();
+        $emailForm = $this->createForm(new EmailType(), $email);
+        $emailForm->add('Dodaj email', 'submit');
+        $emailForm->handleRequest($request);
 
+        if ($emailForm->isValid()) {
+            $email->setPerson($person);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($email);
+            $em->flush();
+        }
+
+        return $emailForm;
     }
 
-    private function addressFormAction()
+    private function phoneFormAction(Request $request, Person $person)
     {
+        $phone = new Phone();
+        $phoneForm = $this->createForm(new PhoneType(), $phone);
+        $phoneForm->add('Dodaj email', 'submit');
+        $phoneForm->handleRequest($request);
 
-    }
+        if ($phoneForm->isValid()) {
+            $phone->setPerson($person);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($phone);
+            $em->flush();
+        }
 
-    private function emailFormAction()
-    {
-
-    }
-
-    private function phoneFormAction()
-    {
-
+        return $phoneForm;
     }
 
     /**

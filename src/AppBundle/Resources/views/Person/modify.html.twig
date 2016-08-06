@@ -9,10 +9,16 @@
     {{ include('AppBundle:Person:person.html.twig', {'person':person}) }}
 <hr>
     <p>Edycja danych kontaktu</p>
-    {{ form(form) }}
+    {{ form(personForm) }}
 <hr>
     <p>Dodawanie adresu</p>
     {{ form(addressForm) }}
+    <hr>
+    <p>Dodawanie emaila</p>
+    {{ form(emailForm) }}
+    <hr>
+    <p>Dodawanie numeru telefonu</p>
+    {{ form(phoneForm) }}
 
 {% endblock %}
 
